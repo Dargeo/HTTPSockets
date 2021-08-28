@@ -3,14 +3,15 @@ import requests as req
 
 
 def postTask(task):
-
-    resp = req.post("http://localhost:8000/tasklist/new", files=dict(task=task))
+    cert = req.certs.where()
+    
+    resp = req.post("http://54.83.172.18:5050/tasklist/new", files=dict(task=task))
     print(resp.text)
 
 def removtask(task):
     data = {'task': task}
     print(data)
-    resp = req.post("http://localhost:8000/tasklist/{}/remove".format(task) , files=dict(task=task) )
+    resp = req.post("http://54.83.172.18:5050/tasklist/{}/remove".format(task) , files=dict(task=task) )
     print(resp.text)
 
 def main():

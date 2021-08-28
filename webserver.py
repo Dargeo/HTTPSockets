@@ -71,10 +71,10 @@ class requestHandler(BaseHTTPRequestHandler):
                 pdict['CONTENT-LENGTH'] = content_len
                 if ctype == 'multipart/form-data':
                     fields = cgi.parse_multipart(self.rfile, pdict)
-                    print(fields)
+                   
                     new_task = fields.get('task')
-                    tasklist.append(new_task[0])
-                    print('Se agrego:',new_task[0])
+                    tasklist.append(bytes.decode(new_task[0]))
+                    print('Se agrego:',bytes.decode(new_task[0]))
                     self.send_response(301)
                     self.send_header('content-type', 'text/html')
                     self.send_header('Location','/')
