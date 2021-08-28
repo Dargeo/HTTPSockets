@@ -100,8 +100,8 @@ class requestHandler(BaseHTTPRequestHandler):
                     for i in range(0,len(tasklist)):
                         print(tasklist[i])
 def main():
-    PORT = 8000
-    server_adress=('localhost',PORT)
+    PORT = 5050
+    server_adress=('0.0.0.0',PORT)
     server = HTTPServer(server_adress,requestHandler)
     print('Server running on port %s' % PORT)
     print('La informacion es:',)    
