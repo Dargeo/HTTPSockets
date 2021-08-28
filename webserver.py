@@ -17,9 +17,16 @@ class requestHandler(BaseHTTPRequestHandler):
                 output += '<h1> task List </h1>'
                 output += '<h3><a href ="/tasklist/new">Add new task</a></h3>'
                 for task in tasklist:
-                    output += task   
-                    output += '<a href ="/tasklist/%s/remove">X</a>' % task
-                    output += '</br>'
+                    if type(task) is bytes:
+                        task = bytes.decode(task)
+                        output += task   
+                        output += '<a href ="/tasklist/%s/remove">X</a>' % task
+                        output += '</br>'
+                    else:
+                        output += task   
+                        output += '<a href ="/tasklist/%s/remove">X</a>' % task
+                        output += '</br>'
+                        
 
                 output += '</body></html>'
                 self.wfile.write(output.encode())
@@ -59,10 +66,12 @@ class requestHandler(BaseHTTPRequestHandler):
             if self.path.endswith('/new'):
                 ctype,pdict = cgi.parse_header(self.headers.get('content-type'))
                 pdict['boundary'] = bytes(pdict['boundary'],"utf-8")
+                
                 content_len = int(self.headers.get('Content-length'))
                 pdict['CONTENT-LENGTH'] = content_len
                 if ctype == 'multipart/form-data':
                     fields = cgi.parse_multipart(self.rfile, pdict)
+                    print(fields)
                     new_task = fields.get('task')
                     tasklist.append(new_task[0])
                     print('Se agrego:',new_task[0])
@@ -76,9 +85,11 @@ class requestHandler(BaseHTTPRequestHandler):
 
             if self.path.endswith('/remove'):
                 listIDPath = self.path.split('/')[2]
+                print(self.headers)
                 ctype,pdict = cgi.parse_header(self.headers.get('content-type'))
                 if ctype == 'multipart/form-data':
                     list_item = listIDPath.replace('%20', ' ')
+                    print(list_item)
                     tasklist.remove(list_item)
                     print('Se elimino:',list_item)
                     self.send_response(301)
