@@ -7,6 +7,7 @@ tasklist=['Task 1', 'Task 2', 'Task 3']
 class requestHandler(BaseHTTPRequestHandler):
         def do_GET(self):
             if self.path.endswith('/'):
+                
                 self.send_response(200)
                 self.send_header('content-type', 'text/html')
                 self.end_headers()
@@ -64,11 +65,14 @@ class requestHandler(BaseHTTPRequestHandler):
                     fields = cgi.parse_multipart(self.rfile, pdict)
                     new_task = fields.get('task')
                     tasklist.append(new_task[0])
-
+                    print('Se agrego:',new_task[0])
                     self.send_response(301)
                     self.send_header('content-type', 'text/html')
                     self.send_header('Location','/')
                     self.end_headers()
+                    print('La informacion es:')
+                    for i in range(0,len(tasklist)):
+                        print(tasklist[i])
 
             if self.path.endswith('/remove'):
                 listIDPath = self.path.split('/')[2]
@@ -76,15 +80,22 @@ class requestHandler(BaseHTTPRequestHandler):
                 if ctype == 'multipart/form-data':
                     list_item = listIDPath.replace('%20', ' ')
                     tasklist.remove(list_item)
+                    print('Se elimino:',list_item)
                     self.send_response(301)
                     self.send_header('content-type', 'text/html')
                     self.send_header('Location','/')
                     self.end_headers()
+                    print('La informacion es:')
+                    for i in range(0,len(tasklist)):
+                        print(tasklist[i])
 def main():
     PORT = 8000
     server_adress=('localhost',PORT)
     server = HTTPServer(server_adress,requestHandler)
     print('Server running on port %s' % PORT)
+    print('La informacion es:',)    
+    for i in range(0,len(tasklist)):
+        print(tasklist[i])
     server.serve_forever()
 
 
