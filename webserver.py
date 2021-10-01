@@ -78,10 +78,14 @@ class requestHandler(BaseHTTPRequestHandler):
                     new_task = fields.get('bucket')
                     if isinstance(new_task[0],str):
                         buckets.append(new_task[0])
-                        print('Se agrego:'+ new_task[0])
+                        if(os.path.isdir('Buckets/' + new_task[0]) == False):
+                            print('Se creo el bucket:'+ new_task[0])
+                            os.mkdir('Buckets/' + new_task[0])
+                        
                     else:
                         buckets.append(bytes.decode(new_task[0]))
                         print('Se agrego:',bytes.decode(new_task[0]))
+                    
                     self.send_response(301)
                     self.send_header('content-type', 'text/html')
                     self.send_header('Location','/')
