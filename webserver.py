@@ -31,6 +31,14 @@ class requestHandler(BaseHTTPRequestHandler):
 
                 output += '</body></html>'
                 self.wfile.write(output.encode())
+                rootDir = "Buckets"
+            for root, dirs, files in os.walk(rootDir):
+                level = root.replace(rootDir, '').count(os.sep)
+                indent = ' ' * 4 * (level)
+                print('{}{}/'.format(indent, os.path.basename(root)))
+                subindent = ' ' * 4 * (level + 1)
+            for f in files:
+                    print('{}{}'.format(subindent, f))
 
             if self.path.endswith('/new'):
                 self.send_response(200)
@@ -112,15 +120,7 @@ def main():
     server_adress=('0.0.0.0',PORT)
     server = HTTPServer(server_adress,requestHandler)
     print('Server running on port %s' % PORT)
-    rootDir = "Buckets"
-    list_dir=[]
-    for root, dirs, files in os.walk(rootDir):
-        level = root.replace(rootDir, '').count(os.sep)
-        indent = ' ' * 4 * (level)
-        print('{}{}/'.format(indent, os.path.basename(root)))
-        subindent = ' ' * 4 * (level + 1)
-        for f in files:
-            print('{}{}'.format(subindent, f))
+
     server.serve_forever()
 
 
