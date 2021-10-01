@@ -114,20 +114,11 @@ def main():
     print('Server running on port %s' % PORT)
     rootDir = "Buckets"
     list_dir=[]
-    for dirName, subdirList, fileList in os.walk(rootDir):
-        element={}
-
-        #validamos que no vaya la carpeta root en mi caso no lo deseo
-        if dirName != 'media/gestionDocumental/':
-            #nombre original para mostrar 
-            element['carpeta'] = dirName.split('media/gestionDocumental/')
-            #url/ruta esta es la ruta absoluta
-            element['url_carpeta'] = dirName
-
-            #archivos cada uno de los archivos pertenecientes al folder
-            element['archivos'] = fileList
-            #agregamos element al array
-            list_dir.append(element) 
+    for root, dirs, files in os.walk(".", topdown=False):
+        for name in files:
+            print(os.path.join(root, name))
+        for name in dirs:
+            print(os.path.join(root, name))
     server.serve_forever()
 
 
