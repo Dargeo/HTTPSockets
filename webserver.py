@@ -15,7 +15,7 @@ class requestHandler(BaseHTTPRequestHandler):
                 output = ''
                 output += '<html><body>'
                 output += '<h1> Bucket List </h1>'
-                output += '<h3><a href ="/buckets/new">Add new bucket</a></h3>'
+                output += '<h3><a href ="/bucket/new">Add new bucket</a></h3>'
                 for bucket in buckets:
                     if type(bucket) is bytes:
                         bucket = bytes.decode(bucket)
@@ -73,8 +73,12 @@ class requestHandler(BaseHTTPRequestHandler):
                     fields = cgi.parse_multipart(self.rfile, pdict)
                    
                     new_task = fields.get('bucket')
-                    buckets.append(bytes.decode(new_task[0]))
-                    print('Se agrego:',bytes.decode(new_task[0]))
+                    if isinstance(new_task,str):
+                        buckets.append(new_task[0])
+                        print('Se agrego:'+ new_task[0])
+                    else:
+                        buckets.append(bytes.decode(new_task[0]))
+                        print('Se agrego:',bytes.decode(new_task[0]))
                     self.send_response(301)
                     self.send_header('content-type', 'text/html')
                     self.send_header('Location','/')
