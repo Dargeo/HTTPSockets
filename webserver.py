@@ -114,11 +114,13 @@ def main():
     print('Server running on port %s' % PORT)
     rootDir = "Buckets"
     list_dir=[]
-    for root, dirs, files in os.walk("/Buckets", topdown=False):
-        for name in files:
-            print(os.path.join(root, name))
-        for name in dirs:
-            print(os.path.join(root, name))
+    for root, dirs, files in os.walk(rootDir):
+        level = root.replace(rootDir, '').count(os.sep)
+        indent = ' ' * 4 * (level)
+        print('{}{}/'.format(indent, os.path.basename(root)))
+        subindent = ' ' * 4 * (level + 1)
+        for f in files:
+            print('{}{}'.format(subindent, f))
     server.serve_forever()
 
 
