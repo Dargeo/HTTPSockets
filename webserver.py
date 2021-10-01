@@ -2,6 +2,7 @@ from http import server
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import cgi
 import os
+import shutil
 buckets=['bucket 1', 'bucket 2', 'bucket 3']
 
 class requestHandler(BaseHTTPRequestHandler):
@@ -94,9 +95,7 @@ class requestHandler(BaseHTTPRequestHandler):
                     self.send_header('content-type', 'text/html')
                     self.send_header('Location','/')
                     self.end_headers()
-                    print('La informacion es:')
-                    for i in range(0,len(buckets)):
-                        print(buckets[i])
+                    
 
             if self.path.endswith('/remove'):
                 listIDPath = self.path.split('/')[2]
@@ -106,6 +105,10 @@ class requestHandler(BaseHTTPRequestHandler):
                     list_item = listIDPath.replace('%20', ' ')
                     print(list_item)
                     buckets.remove(list_item)
+                    nombre = 'Buckets/' + list_item
+                    shutil.rmtree(nombre)
+                    self.dicc['mensaje'] =f"el bucket {list_item} ha sido eliminado"
+                    self.enviar_archivo()
                     print('Se elimino:',list_item)
                     self.send_response(301)
                     self.send_header('content-type', 'text/html')
