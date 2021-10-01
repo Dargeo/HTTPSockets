@@ -31,14 +31,8 @@ class requestHandler(BaseHTTPRequestHandler):
 
                 output += '</body></html>'
                 self.wfile.write(output.encode())
-                rootDir = "Buckets"
-            for root, dirs, files in os.walk(rootDir):
-                level = root.replace(rootDir, '').count(os.sep)
-                indent = ' ' * 4 * (level)
-                print('{}{}/'.format(indent, os.path.basename(root)))
-                subindent = ' ' * 4 * (level + 1)
-            for f in files:
-                    print('{}{}'.format(subindent, f))
+                dirtree()
+
 
             if self.path.endswith('/new'):
                 self.send_response(200)
@@ -113,8 +107,10 @@ class requestHandler(BaseHTTPRequestHandler):
                     for i in range(0,len(buckets)):
                         print(buckets[i])
 def main():
+    
     if(os.path.isdir('Buckets/') == False):
      os.mkdir('Buckets/')
+    dirtree()
     print('Se instancio la carpeta para almacenar los buckets')
     PORT = 5050
     server_adress=('0.0.0.0',PORT)
@@ -123,6 +119,14 @@ def main():
 
     server.serve_forever()
 
-
+def dirtree():
+    rootDir = "Buckets"
+    for root, dirs, files in os.walk(rootDir):
+        level = root.replace(rootDir, '').count(os.sep)
+        indent = ' ' * 4 * (level)
+        print('{}{}/'.format(indent, os.path.basename(root)))
+        subindent = ' ' * 4 * (level + 1)
+    for f in files:
+            print('{}{}'.format(subindent, f))
 if __name__ == '__main__':
     main()
