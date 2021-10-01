@@ -3,16 +3,15 @@ import urllib,bs4
 
 
 def postTask(bucket):
-    cert = req.certs.where()
-    
-    resp = req.post("http://100.25.117.202:5050/buckets/new", files=dict(bucket=bucket))
-
+    req.certs.where()
+    req.post("http://100.25.117.202:5050/buckets/new", files=dict(bucket=bucket))
+    print("Se ha agregado el bucket " + bucket + " \n\n")
 
 def removtask(bucket):
     data = {'bucket': bucket}
-    print(data)
+    
     resp = req.post("http://100.25.117.202:5050/buckets/{}/remove".format(bucket) , files=dict(bucket=bucket) )
-    print(resp.text)
+    print("Se ha eliminado el bucket " + data + " \n\n ")
 
 def main():
     res =""
