@@ -112,7 +112,7 @@ class requestHandler(BaseHTTPRequestHandler):
                     
                     nombre = 'Buckets/' + list_item
                     shutil.rmtree(nombre)
-                    self.dicc['mensaje'] =f"el bucket {list_item} ha sido eliminado"
+                    print("Se ha eliminado el bucket " + list_item)
                     self.enviar_archivo()
                     print('Se elimino:',list_item)
                     self.send_response(301)
