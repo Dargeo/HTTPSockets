@@ -58,7 +58,7 @@ class requestHandler(BaseHTTPRequestHandler):
                 output += '<h1>Remove bucket: %s</h1>' % listIDPath.replace('%20',' ')
                 output += '<form method ="POST" enctype="multipart/form-data" action="/buckets/%s/remove">' % listIDPath 
                 output += '<input type="submit" value="Remove">'
-                output += '<a href ="/buckets">Cancel</a>' 
+                output += '<a href ="/">Cancel</a>' 
                 output += '</body></html>'
                 self.wfile.write(output.encode())
 
