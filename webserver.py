@@ -30,10 +30,10 @@ class requestHandler(BaseHTTPRequestHandler):
                         output += '<a href ="/buckets/%s/remove">X</a>' % bucket
                         output += '</br>'
                 for item in os.listdir('Buckets'):
-                    output = '<ul>'
-                    output = '<li>%s</li>' % item
+                    output += '<ul>'
+                    output += '<li>%s</li>' % item
                     
-                output = '</ul>'        
+                output += '</ul>'        
 
                 output += '</body></html>'
                 self.wfile.write(output.encode())
