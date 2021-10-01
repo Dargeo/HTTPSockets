@@ -6,14 +6,7 @@ def postTask(bucket):
     cert = req.certs.where()
     
     resp = req.post("http://100.25.117.202:5050/buckets/new", files=dict(bucket=bucket))
-    
-    url = "http://100.25.117.202:5050"
-    url_contents = urllib.request.urlopen(url).read()
-    soup = bs4.BeautifulSoup(url_contents, "html.parser")
-    div = soup.find('ul', id="ull")
 
-    
-    print(div.string)
 
 def removtask(bucket):
     data = {'bucket': bucket}
@@ -22,6 +15,14 @@ def removtask(bucket):
     print(resp.text)
 
 def main():
+        
+    url = "http://100.25.117.202:5050"
+    url_contents = urllib.request.urlopen(url).read()
+    soup = bs4.BeautifulSoup(url_contents, "html.parser")
+    div = soup.find('ul', id="ull")
+
+    
+    print(div.string)
     nume= input('Digite el numero de lo que quiera hacer \n 1.) Añadir bucket \n 2.) Eliminar bucket\n')
     if nume == '1' :
         postTask(input("Ingrese el nombre del bucket \n"))
