@@ -6,9 +6,9 @@ def postTask(bucket):
     cert = req.certs.where()
     
     resp = req.post("http://100.25.117.202:5050/buckets/new", files=dict(bucket=bucket))
-    print(resp.text)
-    url = "http://100.25.117.202:5050"
     
+    url = "http://100.25.117.202:5050"
+    url_contents = urllib.request.urlopen(url).read()
     
     soup = bs4.BeautifulSoup(url_contents, "html.parser")
     div = soup.find('ul', id='ull')
