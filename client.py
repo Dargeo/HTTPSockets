@@ -11,7 +11,7 @@ def removtask(bucket):
     data = {'bucket': bucket}
     
     resp = req.post("http://100.25.117.202:5050/buckets/{}/remove".format(bucket) , files=dict(bucket=bucket) )
-    print("Se ha eliminado el bucket " + data + " \n\n ")
+    print("Se ha eliminado el bucket " + bucket + " \n\n ")
 
 def main():
     res =""
