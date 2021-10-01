@@ -22,7 +22,7 @@ class requestHandler(BaseHTTPRequestHandler):
                 for item in os.listdir('Buckets'):
                     
                     output += '<li>%s</li> <a href ="/buckets/%s/remove">X</a>' % (item,item)
-                     
+                    output += 'Hola'
                     
                 output += '</ul>'        
 

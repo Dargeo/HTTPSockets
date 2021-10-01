@@ -22,7 +22,7 @@ def main():
     div = soup.find('ul', id="ull")
 
     
-    print(div.string)
+    print(str(div))
     nume= input('Digite el numero de lo que quiera hacer \n 1.) Añadir bucket \n 2.) Eliminar bucket\n')
     if nume == '1' :
         postTask(input("Ingrese el nombre del bucket \n"))
