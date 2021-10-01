@@ -1,10 +1,11 @@
 from http import server
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import cgi
-
+import os
 buckets=['bucket 1', 'bucket 2', 'bucket 3']
 
 class requestHandler(BaseHTTPRequestHandler):
+
         def do_GET(self):
             if self.path.endswith('/'):
                 
@@ -104,13 +105,29 @@ class requestHandler(BaseHTTPRequestHandler):
                     for i in range(0,len(buckets)):
                         print(buckets[i])
 def main():
+    if(os.path.isdir('Buckets/') == False):
+     os.mkdir('Buckets/')
+    print('Se instancio la carpeta para almacenar los buckets')
     PORT = 5050
     server_adress=('0.0.0.0',PORT)
     server = HTTPServer(server_adress,requestHandler)
     print('Server running on port %s' % PORT)
-    print('La informacion es:',)    
-    for i in range(0,len(buckets)):
-        print(buckets[i])
+    rootDir = "Buckets"
+    list_dir=[]
+    for dirName, subdirList, fileList in os.walk(rootDir):
+        element={}
+
+        #validamos que no vaya la carpeta root en mi caso no lo deseo
+        if dirName != 'media/gestionDocumental/':
+            #nombre original para mostrar 
+            element['carpeta'] = dirName.split('media/gestionDocumental/')
+            #url/ruta esta es la ruta absoluta
+            element['url_carpeta'] = dirName
+
+            #archivos cada uno de los archivos pertenecientes al folder
+            element['archivos'] = fileList
+            #agregamos element al array
+            list_dir.append(element) 
     server.serve_forever()
 
 
