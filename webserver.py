@@ -18,10 +18,10 @@ class requestHandler(BaseHTTPRequestHandler):
                 output += '<html><body>'
                 output += '<h1> Bucket List </h1>'
                 output += '<h3><a href ="/bucket/new">Add new bucket</a></h3>'
-                output += '<ul id="ull">'
+                output += '<ul >'
                 for item in os.listdir('Buckets'):
                     
-                    output += '<li>%s</li> <a href ="/buckets/%s/remove">X</a>' % (item,item)
+                    output += '<li id="ull">%s</li> <a href ="/buckets/%s/remove">X</a>' % (item,item)
                     output += 'Hola'
                     
                 output += '</ul>'        
