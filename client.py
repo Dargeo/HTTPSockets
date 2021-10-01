@@ -9,12 +9,11 @@ def postTask(bucket):
     
     url = "http://100.25.117.202:5050"
     url_contents = urllib.request.urlopen(url).read()
-    
     soup = bs4.BeautifulSoup(url_contents, "html.parser")
     div = soup.find('ul', id='ull')
 
     
-    print(div.string)
+    print(div)
 
 def removtask(bucket):
     data = {'bucket': bucket}
