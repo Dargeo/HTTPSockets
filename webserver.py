@@ -2,7 +2,7 @@ from http import server
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import cgi
 
-tasklist=['Task 1', 'Task 2', 'Task 3']
+buckets=['bucket 1', 'bucket 2', 'bucket 3']
 
 class requestHandler(BaseHTTPRequestHandler):
         def do_GET(self):
@@ -14,17 +14,17 @@ class requestHandler(BaseHTTPRequestHandler):
 
                 output = ''
                 output += '<html><body>'
-                output += '<h1> task List </h1>'
-                output += '<h3><a href ="/tasklist/new">Add new task</a></h3>'
-                for task in tasklist:
-                    if type(task) is bytes:
-                        task = bytes.decode(task)
-                        output += task   
-                        output += '<a href ="/tasklist/%s/remove">X</a>' % task
+                output += '<h1> Bucket List </h1>'
+                output += '<h3><a href ="/buckets/new">Add new bucket</a></h3>'
+                for bucket in buckets:
+                    if type(bucket) is bytes:
+                        bucket = bytes.decode(bucket)
+                        output += bucket   
+                        output += '<a href ="/buckets/%s/remove">X</a>' % bucket
                         output += '</br>'
                     else:
-                        output += task   
-                        output += '<a href ="/tasklist/%s/remove">X</a>' % task
+                        output += bucket   
+                        output += '<a href ="/buckets/%s/remove">X</a>' % bucket
                         output += '</br>'
                         
 
@@ -38,10 +38,10 @@ class requestHandler(BaseHTTPRequestHandler):
 
                 output = ''
                 output += '<html><body>'
-                output += '<h1> Add new Task</h1>'
+                output += '<h1> Add new bucket</h1>'
 
-                output += '<form method ="POST" enctype="multipart/form-data" action="/tasklist/new">'
-                output += '<input name="task" type="text" placeholder="Add new task">'
+                output += '<form method ="POST" enctype="multipart/form-data" action="/buckets/new">'
+                output += '<input name="bucket" type="text" placeholder="Add new bucket">'
                 output += '<input type="submit" value="Add">'
                 output += '</form>'
                 output += '</body></html>'
@@ -55,10 +55,10 @@ class requestHandler(BaseHTTPRequestHandler):
                 self.end_headers()
                 output = ''
                 output += '<html><body>'
-                output += '<h1>Remove task: %s</h1>' % listIDPath.replace('%20',' ')
-                output += '<form method ="POST" enctype="multipart/form-data" action="/tasklist/%s/remove">' % listIDPath 
+                output += '<h1>Remove bucket: %s</h1>' % listIDPath.replace('%20',' ')
+                output += '<form method ="POST" enctype="multipart/form-data" action="/buckets/%s/remove">' % listIDPath 
                 output += '<input type="submit" value="Remove">'
-                output += '<a href ="/tasklist">Cancel</a>' 
+                output += '<a href ="/buckets">Cancel</a>' 
                 output += '</body></html>'
                 self.wfile.write(output.encode())
 
@@ -72,16 +72,16 @@ class requestHandler(BaseHTTPRequestHandler):
                 if ctype == 'multipart/form-data':
                     fields = cgi.parse_multipart(self.rfile, pdict)
                    
-                    new_task = fields.get('task')
-                    tasklist.append(bytes.decode(new_task[0]))
+                    new_task = fields.get('bucket')
+                    buckets.append(bytes.decode(new_task[0]))
                     print('Se agrego:',bytes.decode(new_task[0]))
                     self.send_response(301)
                     self.send_header('content-type', 'text/html')
                     self.send_header('Location','/')
                     self.end_headers()
                     print('La informacion es:')
-                    for i in range(0,len(tasklist)):
-                        print(tasklist[i])
+                    for i in range(0,len(buckets)):
+                        print(buckets[i])
 
             if self.path.endswith('/remove'):
                 listIDPath = self.path.split('/')[2]
@@ -90,23 +90,23 @@ class requestHandler(BaseHTTPRequestHandler):
                 if ctype == 'multipart/form-data':
                     list_item = listIDPath.replace('%20', ' ')
                     print(list_item)
-                    tasklist.remove(list_item)
+                    buckets.remove(list_item)
                     print('Se elimino:',list_item)
                     self.send_response(301)
                     self.send_header('content-type', 'text/html')
                     self.send_header('Location','/')
                     self.end_headers()
                     print('La informacion es:')
-                    for i in range(0,len(tasklist)):
-                        print(tasklist[i])
+                    for i in range(0,len(buckets)):
+                        print(buckets[i])
 def main():
     PORT = 5050
     server_adress=('0.0.0.0',PORT)
     server = HTTPServer(server_adress,requestHandler)
     print('Server running on port %s' % PORT)
     print('La informacion es:',)    
-    for i in range(0,len(tasklist)):
-        print(tasklist[i])
+    for i in range(0,len(buckets)):
+        print(buckets[i])
     server.serve_forever()
 
 

@@ -2,24 +2,24 @@ import requests as req
 
 
 
-def postTask(task):
+def postTask(bucket):
     cert = req.certs.where()
     
-    resp = req.post("http://54.83.172.18:5050/tasklist/new", files=dict(task=task))
+    resp = req.post("http://54.83.172.18:5050/tasklist/new", files=dict(bucket=bucket))
     print(resp.text)
 
-def removtask(task):
-    data = {'task': task}
+def removtask(bucket):
+    data = {'bucket': bucket}
     print(data)
-    resp = req.post("http://54.83.172.18:5050/tasklist/{}/remove".format(task) , files=dict(task=task) )
+    resp = req.post("http://54.83.172.18:5050/tasklist/{}/remove".format(bucket) , files=dict(bucket=bucket) )
     print(resp.text)
 
 def main():
-    nume= input('Digite el numero de lo que quiera hacer \n 1.) Añadir task \n 2.) Eliminar Task\n')
+    nume= input('Digite el numero de lo que quiera hacer \n 1.) Añadir bucket \n 2.) Eliminar bucket\n')
     if nume == '1' :
-        postTask(input("Ingrese el nombre del task \n"))
+        postTask(input("Ingrese el nombre del bucket \n"))
     elif nume == '2':
-        removtask(input("Ingrese el nombre de la task a eliminar\n"))
+        removtask(input("Ingrese el nombre de la bucket a eliminar\n"))
     else:
         print("si\n")
 
