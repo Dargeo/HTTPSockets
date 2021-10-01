@@ -18,7 +18,7 @@ class requestHandler(BaseHTTPRequestHandler):
                 output += '<html><body>'
                 output += '<h1> Bucket List </h1>'
                 output += '<h3><a href ="/bucket/new">Add new bucket</a></h3>'
-                output += '<ul>'
+                output += '<ul id="ull">'
                 for item in os.listdir('Buckets'):
                     
                     output += '<li>%s</li> <a href ="/buckets/%s/remove">X</a>' % (item,item)
@@ -109,9 +109,7 @@ class requestHandler(BaseHTTPRequestHandler):
                     self.send_header('content-type', 'text/html')
                     self.send_header('Location','/')
                     self.end_headers()
-                    print('La informacion es:')
-                    for i in range(0,len(buckets)):
-                        print(buckets[i])
+
 def main():
     
     if(os.path.isdir('Buckets/') == False):
