@@ -84,9 +84,10 @@ class requestHandler(BaseHTTPRequestHandler):
                         
                     else:
                         buckets.append(bytes.decode(new_task[0]))
-                        if(os.path.isdir(('Buckets/',bytes.decode(new_task[0]))) == False):
+                        urla = bytes.decode(new_task[0])
+                        if(os.path.isdir(('Buckets/' + urla)) == False):
                             print('Se creo el bucket:',bytes.decode(new_task[0]))
-                            os.mkdir(('Buckets/',bytes.decode(new_task[0])))
+                            os.mkdir(('Buckets/' + urla))
                         
                     
                     self.send_response(301)
