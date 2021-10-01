@@ -22,7 +22,7 @@ def main():
         div = soup.find_all('li', id="ull")
         print("Lista de buckets: \n")
         for d in div:
-            print(d.string+ " \n")
+            print(d.string)
 
         res= input('Digite el numero de lo que quiera hacer \n 1.) Añadir bucket \n 2.) Eliminar bucket\n 3.) Cerrar\n')
         if res == '1' :
