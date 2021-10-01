@@ -5,13 +5,13 @@ import requests as req
 def postTask(bucket):
     cert = req.certs.where()
     
-    resp = req.post("http://54.83.172.18:5050/tasklist/new", files=dict(bucket=bucket))
+    resp = req.post("http://54.83.172.18:5050/buckets/new", files=dict(bucket=bucket))
     print(resp.text)
 
 def removtask(bucket):
     data = {'bucket': bucket}
     print(data)
-    resp = req.post("http://54.83.172.18:5050/tasklist/{}/remove".format(bucket) , files=dict(bucket=bucket) )
+    resp = req.post("http://54.83.172.18:5050/buckets/{}/remove".format(bucket) , files=dict(bucket=bucket) )
     print(resp.text)
 
 def main():
