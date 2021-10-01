@@ -13,7 +13,7 @@ def postTask(bucket):
     div = soup.find('ul', id="ull")
 
     
-    print(div)
+    print(div.string)
 
 def removtask(bucket):
     data = {'bucket': bucket}
