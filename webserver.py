@@ -29,8 +29,9 @@ class requestHandler(BaseHTTPRequestHandler):
                         output += bucket   
                         output += '<a href ="/buckets/%s/remove">X</a>' % bucket
                         output += '</br>'
+                output += '<ul>'
                 for item in os.listdir('Buckets'):
-                    output += '<ul>'
+                    
                     output += '<li>%s</li>' % item
                     
                 output += '</ul>'        
