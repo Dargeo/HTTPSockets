@@ -9,3 +9,13 @@
  Client:
  `python3 client.py`
  Este iniciara un menu como cliente, que permitira lo mismo que se puede hacer en la pagina para cualquier otro usuario, pero este sera desplegado desde la terminal.
+
+
+Librerias necesarias para la ejecucion:
+- requests
+- urllib
+- bs4
+- http
+- cgi
+- os
+- shutil
