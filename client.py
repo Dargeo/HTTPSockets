@@ -15,22 +15,23 @@ def removtask(bucket):
     print(resp.text)
 
 def main():
-        
-    url = "http://100.25.117.202:5050"
-    url_contents = urllib.request.urlopen(url).read()
-    soup = bs4.BeautifulSoup(url_contents, "html.parser")
-    div = soup.find_all('li', id="ull")
+    res =""
+    while res != 3:
+        url = "http://100.25.117.202:5050"
+        url_contents = urllib.request.urlopen(url).read()
+        soup = bs4.BeautifulSoup(url_contents, "html.parser")
+        div = soup.find_all('li', id="ull")
 
-    for d in div:
-        print(d.string)
+        for d in div:
+            print(d.string)
 
-    nume= input('Digite el numero de lo que quiera hacer \n 1.) Añadir bucket \n 2.) Eliminar bucket\n')
-    if nume == '1' :
-        postTask(input("Ingrese el nombre del bucket \n"))
-    elif nume == '2':
-        removtask(input("Ingrese el nombre de la bucket a eliminar\n"))
-    else:
-        print("si\n")
+        res= input('Digite el numero de lo que quiera hacer \n 1.) Añadir bucket \n 2.) Eliminar bucket\n 3.) Cerrar')
+        if res == '1' :
+            postTask(input("Ingrese el nombre del bucket \n"))
+        elif res == '2':
+            removtask(input("Ingrese el nombre de la bucket a eliminar\n"))
+        elif res == '3':
+            break
 
 if __name__ == '__main__':
     main()
