@@ -25,7 +25,7 @@ def main():
         for d in div:
             print(d.string)
 
-        res= input('Digite el numero de lo que quiera hacer \n 1.) Añadir bucket \n 2.) Eliminar bucket\n 3.) Cerrar')
+        res= input('Digite el numero de lo que quiera hacer \n 1.) Añadir bucket \n 2.) Eliminar bucket\n 3.) Cerrar\n')
         if res == '1' :
             postTask(input("Ingrese el nombre del bucket \n"))
         elif res == '2':
