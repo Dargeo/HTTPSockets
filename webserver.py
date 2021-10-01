@@ -19,6 +19,7 @@ class requestHandler(BaseHTTPRequestHandler):
                 output += '<h1> Bucket List </h1>'
                 output += '<h3><a href ="/bucket/new">Add new bucket</a></h3>'
                 for bucket in buckets:
+                    
                     if type(bucket) is bytes:
                         bucket = bytes.decode(bucket)
                         output += bucket   
@@ -28,7 +29,11 @@ class requestHandler(BaseHTTPRequestHandler):
                         output += bucket   
                         output += '<a href ="/buckets/%s/remove">X</a>' % bucket
                         output += '</br>'
-                        
+                for item in os.listdir('Buckets'):
+                    output = '<ul>'
+                    output = '<li>%s</li>' % item
+                    
+                output = '</ul>'        
 
                 output += '</body></html>'
                 self.wfile.write(output.encode())
@@ -104,7 +109,7 @@ class requestHandler(BaseHTTPRequestHandler):
                 if ctype == 'multipart/form-data':
                     list_item = listIDPath.replace('%20', ' ')
                     print(list_item)
-                    buckets.remove(list_item)
+                    
                     nombre = 'Buckets/' + list_item
                     shutil.rmtree(nombre)
                     self.dicc['mensaje'] =f"el bucket {list_item} ha sido eliminado"
