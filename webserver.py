@@ -73,7 +73,7 @@ class requestHandler(BaseHTTPRequestHandler):
                     fields = cgi.parse_multipart(self.rfile, pdict)
                    
                     new_task = fields.get('bucket')
-                    if isinstance(new_task,str):
+                    if isinstance(new_task[0],str):
                         buckets.append(new_task[0])
                         print('Se agrego:'+ new_task[0])
                     else:
