@@ -20,9 +20,9 @@ def main():
         url_contents = urllib.request.urlopen(url).read()
         soup = bs4.BeautifulSoup(url_contents, "html.parser")
         div = soup.find_all('li', id="ull")
-
+        print("Lista de buckets: \n")
         for d in div:
-            print(d.string)
+            print(d.string+ " \n")
 
         res= input('Digite el numero de lo que quiera hacer \n 1.) Añadir bucket \n 2.) Eliminar bucket\n 3.) Cerrar\n')
         if res == '1' :
