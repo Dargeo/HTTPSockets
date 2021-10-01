@@ -18,22 +18,11 @@ class requestHandler(BaseHTTPRequestHandler):
                 output += '<html><body>'
                 output += '<h1> Bucket List </h1>'
                 output += '<h3><a href ="/bucket/new">Add new bucket</a></h3>'
-                for bucket in buckets:
-                    
-                    if type(bucket) is bytes:
-                        bucket = bytes.decode(bucket)
-                        output += bucket   
-                        output += '<a href ="/buckets/%s/remove">X</a>' % bucket
-                        output += '</br>'
-                    else:
-                        output += bucket   
-                        output += '<a href ="/buckets/%s/remove">X</a>' % bucket
-                        output += '</br>'
                 output += '<ul>'
                 for item in os.listdir('Buckets'):
                     
-                    output += '<li>%s</li>' % item
-                    output += '<a href ="/buckets/%s/remove">X</a>' % bucket
+                    output += '<li>%s</li> <a href ="/buckets/%s/remove">X</a>' % item
+                     
                     
                 output += '</ul>'        
 
