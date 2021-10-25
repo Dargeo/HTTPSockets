@@ -21,8 +21,8 @@ class requestHandler(BaseHTTPRequestHandler):
                 output += '<ul >'
                 for item in os.listdir('Buckets'):
                     
-                    output += '<li id="ull">%s</li> <a href ="/buckets/%s/remove">X</a>' % (item,item)
-                    output += 'Hola'
+                    output += '<li id="ull">%s<a href ="/buckets/%s/remove">X</a></li> ' % (item,item)
+                    
                     
                 output += '</ul>'        
 
